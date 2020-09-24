@@ -46,22 +46,43 @@ func (c *MainController) Get() {
 //	}
 //}
 
-func (c *MainController)Post(){
-	//解析前端json的 格式
-	var Person models.Person
+//func (c *MainController)Post(){
+//	//解析前端json的 格式
+//	var Person models.Person
+//	dataBytes,err:=ioutil.ReadAll(c.Ctx.Request.Body)
+//	if err !=nil{
+//		c.Ctx.WriteString("数据解析1失败")
+//		return
+//	}
+//	err = json.Unmarshal(dataBytes,&Person)
+//	if err !=nil{
+//		fmt.Println(err.Error())
+//		c.Ctx.WriteString("数据解2析失败")
+//		return
+//	}
+//	fmt.Println("姓名",Person.Name)
+//	fmt.Println("姓名",Person.Age)
+//	fmt.Println("姓名",Person.Sex)
+//	c.Ctx.WriteString("数据解析成功")
+//}
+
+func (c*MainController) Post() {
+   //解析前端json格式
+	var information models.Information//面向对象编程
 	dataBytes,err:=ioutil.ReadAll(c.Ctx.Request.Body)
-	if err !=nil{
-		c.Ctx.WriteString("数据解析1失败")
+	if err != nil{
+		c.Ctx.WriteString("解析数据1失败")//判断解析是否正确
 		return
 	}
-	err = json.Unmarshal(dataBytes,&Person)
-	if err !=nil{
+	err =json.Unmarshal(dataBytes,&information)//
+	if err !=nil {
 		fmt.Println(err.Error())
-		c.Ctx.WriteString("数据解2析失败")
+		c.Ctx.WriteString("解析数据2失败！")
 		return
 	}
-	fmt.Println("姓名",Person.Name)
-	fmt.Println("姓名",Person.Age)
-	fmt.Println("姓名",Person.Sex)
+	fmt.Println("姓名：",information.Name)
+	fmt.Println("生日：",information.Birthday)
+	fmt.Println("地址：",information.Address)
+	fmt.Println("昵称：",information.Nick)
 	c.Ctx.WriteString("数据解析成功")
 }
